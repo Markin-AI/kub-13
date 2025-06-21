@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front
+  namespace: app
+spec:
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-svc
+  namespace: app
+spec:
+  selector:
+    app: front
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
